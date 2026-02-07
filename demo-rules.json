@@ -1,0 +1,345 @@
+{
+  "rules": [
+    {
+      "rule_id": "RULE-000001",
+      "code_reference": "BC-DEMO-001",
+      "title": "Single-Storey Residential Building Limits",
+      "description": "A single-storey residential building shall not exceed a building height of 4.5 m measured from the average finished ground level to the highest point of the roof. The total constructed floor area shall not exceed 1,800 sq. ft.",
+      "category": "dimensional",
+      "building_types": ["residential"],
+      "conditions": [
+        {
+          "field": "building.storeys",
+          "operator": "eq",
+          "value": 1,
+          "description": "Building must be single-storey"
+        },
+        {
+          "field": "building.type",
+          "operator": "in",
+          "value": ["residential"],
+          "description": "Building must be residential"
+        }
+      ],
+      "requirements": [
+        {
+          "field": "building.height.value",
+          "operator": "lte",
+          "value": 4.5,
+          "unit": "meters",
+          "description": "Maximum building height of 4.5 m",
+          "error_message": "Building height exceeds maximum of 4.5 m for single-storey residential"
+        },
+        {
+          "field": "building.total_floor_area.value",
+          "operator": "lte",
+          "value": 1800,
+          "unit": "sqft",
+          "description": "Maximum floor area of 1,800 sq. ft.",
+          "error_message": "Floor area exceeds maximum of 1,800 sq. ft. for single-storey residential"
+        }
+      ],
+      "effective_date": "2026-01-01",
+      "expiry_date": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "status": "active",
+      "severity": "mandatory",
+      "amendment_history": [
+        {
+          "amendment_id": "AMD-000001",
+          "effective_date": "2026-01-01",
+          "change_type": "modification",
+          "previous_value": {
+            "requirements": [
+              {
+                "field": "building.total_floor_area.value",
+                "operator": "lte",
+                "value": 1600,
+                "unit": "sqft",
+                "description": "Maximum floor area of 1,600 sq. ft.",
+                "error_message": "Floor area exceeds maximum of 1,600 sq. ft. for single-storey residential"
+              }
+            ]
+          },
+          "rationale": "Provides additional design flexibility for single-storey residential buildings while maintaining the original height restriction to ensure neighbourhood compatibility",
+          "approved_by": "Province of British Columbia",
+          "approved_date": "2025-12-01T00:00:00Z"
+        }
+      ],
+      "compliance_examples": [
+        {
+          "scenario": "Compliant single-storey dwelling",
+          "input_values": {
+            "building.storeys": 1,
+            "building.type": "residential",
+            "building.height.value": 4.2,
+            "building.height.unit": "meters",
+            "building.total_floor_area.value": 1480,
+            "building.total_floor_area.unit": "sqft"
+          },
+          "expected_result": "pass",
+          "explanation": "Height of 4.2m and floor area of 1,480 sq. ft. are both within the permitted limits"
+        },
+        {
+          "scenario": "Non-compliant - height exceeds limit",
+          "input_values": {
+            "building.storeys": 1,
+            "building.type": "residential",
+            "building.height.value": 4.6,
+            "building.height.unit": "meters",
+            "building.total_floor_area.value": 1750,
+            "building.total_floor_area.unit": "sqft"
+          },
+          "expected_result": "fail",
+          "explanation": "Height of 4.6m exceeds the maximum permitted height of 4.5m"
+        },
+        {
+          "scenario": "Compliant after amendment - floor area at new limit",
+          "input_values": {
+            "building.storeys": 1,
+            "building.type": "residential",
+            "building.height.value": 4.0,
+            "building.height.unit": "meters",
+            "building.total_floor_area.value": 1800,
+            "building.total_floor_area.unit": "sqft"
+          },
+          "expected_result": "pass",
+          "explanation": "Floor area of 1,800 sq. ft. is compliant under the amended limit (previously would have failed at 1,600 sq. ft. limit)"
+        }
+      ],
+      "remediation_guidance": "Reduce building height to 4.5m or less. If height reduction is not feasible, submit a variance application with justification.",
+      "source_document": {
+        "document_id": "DOC-BCBC-DEMO-001",
+        "title": "BC Building Code – Sample Rules (Demo Only)",
+        "version": "1.0",
+        "page_reference": "1",
+        "storage_path": "/documents/bcbc/demo/bc_building_code_demo_rules_table_and_text.pdf"
+      },
+      "tags": ["residential", "height", "floor-area", "single-storey", "dimensional"]
+    },
+    {
+      "rule_id": "RULE-000002",
+      "code_reference": "BC-DEMO-002",
+      "title": "Accessory Structure Limits",
+      "description": "Detached accessory structures such as private garages or storage sheds serving a residential building shall not exceed 3.5 m in height and 750 sq. ft. in total floor area.",
+      "category": "dimensional",
+      "building_types": ["accessory"],
+      "conditions": [
+        {
+          "field": "building.type",
+          "operator": "eq",
+          "value": "accessory",
+          "description": "Structure must be accessory type (garage, shed, etc.)"
+        },
+        {
+          "field": "building.attached",
+          "operator": "eq",
+          "value": false,
+          "description": "Structure must be detached from main building"
+        }
+      ],
+      "requirements": [
+        {
+          "field": "building.height.value",
+          "operator": "lte",
+          "value": 3.5,
+          "unit": "meters",
+          "description": "Maximum height of 3.5 m",
+          "error_message": "Accessory structure height exceeds maximum of 3.5 m"
+        },
+        {
+          "field": "building.total_floor_area.value",
+          "operator": "lte",
+          "value": 750,
+          "unit": "sqft",
+          "description": "Maximum floor area of 750 sq. ft.",
+          "error_message": "Accessory structure floor area exceeds maximum of 750 sq. ft."
+        }
+      ],
+      "effective_date": "2024-01-01",
+      "expiry_date": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "status": "active",
+      "severity": "mandatory",
+      "amendment_history": [],
+      "compliance_examples": [
+        {
+          "scenario": "Compliant detached garage",
+          "input_values": {
+            "building.type": "accessory",
+            "building.attached": false,
+            "building.height.value": 3.2,
+            "building.height.unit": "meters",
+            "building.total_floor_area.value": 600,
+            "building.total_floor_area.unit": "sqft"
+          },
+          "expected_result": "pass",
+          "explanation": "Height of 3.2m and floor area of 600 sq. ft. are within permitted limits"
+        },
+        {
+          "scenario": "Non-compliant - floor area exceeds limit",
+          "input_values": {
+            "building.type": "accessory",
+            "building.attached": false,
+            "building.height.value": 3.0,
+            "building.height.unit": "meters",
+            "building.total_floor_area.value": 850,
+            "building.total_floor_area.unit": "sqft"
+          },
+          "expected_result": "fail",
+          "explanation": "Floor area of 850 sq. ft. exceeds the maximum of 750 sq. ft."
+        },
+        {
+          "scenario": "Rule does not apply - attached structure",
+          "input_values": {
+            "building.type": "accessory",
+            "building.attached": true,
+            "building.height.value": 4.0,
+            "building.height.unit": "meters",
+            "building.total_floor_area.value": 900,
+            "building.total_floor_area.unit": "sqft"
+          },
+          "expected_result": "pass",
+          "explanation": "This rule only applies to detached accessory structures; attached structures are governed by different rules"
+        }
+      ],
+      "remediation_guidance": "Reduce structure dimensions to comply with maximums. Consider splitting into multiple smaller structures if additional space is required.",
+      "source_document": {
+        "document_id": "DOC-BCBC-DEMO-001",
+        "title": "BC Building Code – Sample Rules (Demo Only)",
+        "version": "1.0",
+        "page_reference": "1",
+        "storage_path": "/documents/bcbc/demo/bc_building_code_demo_rules_table_and_text.pdf"
+      },
+      "tags": ["accessory", "garage", "shed", "detached", "dimensional"]
+    },
+    {
+      "rule_id": "RULE-000003",
+      "code_reference": "BC-DEMO-003",
+      "title": "Small Single-Storey Commercial Building Limits",
+      "description": "A single-storey commercial building classified as a small occupancy shall not exceed 6.0 m in building height or 3,000 sq. ft. in total floor area. Mezzanines or partial second levels are not permitted under this rule.",
+      "category": "dimensional",
+      "building_types": ["commercial"],
+      "conditions": [
+        {
+          "field": "building.storeys",
+          "operator": "eq",
+          "value": 1,
+          "description": "Building must be single-storey"
+        },
+        {
+          "field": "building.type",
+          "operator": "eq",
+          "value": "commercial",
+          "description": "Building must be commercial"
+        },
+        {
+          "field": "building.occupancy_class",
+          "operator": "eq",
+          "value": "small",
+          "description": "Must be small occupancy classification"
+        }
+      ],
+      "requirements": [
+        {
+          "field": "building.height.value",
+          "operator": "lte",
+          "value": 6.0,
+          "unit": "meters",
+          "description": "Maximum building height of 6.0 m",
+          "error_message": "Building height exceeds maximum of 6.0 m for small commercial"
+        },
+        {
+          "field": "building.total_floor_area.value",
+          "operator": "lte",
+          "value": 3000,
+          "unit": "sqft",
+          "description": "Maximum floor area of 3,000 sq. ft.",
+          "error_message": "Floor area exceeds maximum of 3,000 sq. ft. for small commercial"
+        },
+        {
+          "field": "building.has_mezzanine",
+          "operator": "eq",
+          "value": false,
+          "description": "No mezzanines permitted",
+          "error_message": "Mezzanines are not permitted for small commercial buildings under this rule"
+        }
+      ],
+      "effective_date": "2024-01-01",
+      "expiry_date": null,
+      "supersedes": null,
+      "superseded_by": null,
+      "status": "active",
+      "severity": "mandatory",
+      "amendment_history": [],
+      "compliance_examples": [
+        {
+          "scenario": "Compliant retail unit",
+          "input_values": {
+            "building.storeys": 1,
+            "building.type": "commercial",
+            "building.occupancy_class": "small",
+            "building.height.value": 5.6,
+            "building.height.unit": "meters",
+            "building.total_floor_area.value": 2750,
+            "building.total_floor_area.unit": "sqft",
+            "building.has_mezzanine": false
+          },
+          "expected_result": "pass",
+          "explanation": "Height of 5.6m, floor area of 2,750 sq. ft., and no mezzanine - all requirements met"
+        },
+        {
+          "scenario": "Non-compliant - has mezzanine",
+          "input_values": {
+            "building.storeys": 1,
+            "building.type": "commercial",
+            "building.occupancy_class": "small",
+            "building.height.value": 5.0,
+            "building.height.unit": "meters",
+            "building.total_floor_area.value": 2000,
+            "building.total_floor_area.unit": "sqft",
+            "building.has_mezzanine": true
+          },
+          "expected_result": "fail",
+          "explanation": "Mezzanines are not permitted under this rule, even though other dimensions comply"
+        },
+        {
+          "scenario": "Rule does not apply - medium occupancy",
+          "input_values": {
+            "building.storeys": 1,
+            "building.type": "commercial",
+            "building.occupancy_class": "medium",
+            "building.height.value": 7.0,
+            "building.height.unit": "meters",
+            "building.total_floor_area.value": 4000,
+            "building.total_floor_area.unit": "sqft",
+            "building.has_mezzanine": true
+          },
+          "expected_result": "pass",
+          "explanation": "This rule only applies to small occupancy classification; medium occupancy is governed by different rules"
+        }
+      ],
+      "remediation_guidance": "Reduce building dimensions to comply with maximums. If mezzanine is required, reclassify building under appropriate commercial category or apply for variance.",
+      "source_document": {
+        "document_id": "DOC-BCBC-DEMO-001",
+        "title": "BC Building Code – Sample Rules (Demo Only)",
+        "version": "1.0",
+        "page_reference": "1",
+        "storage_path": "/documents/bcbc/demo/bc_building_code_demo_rules_table_and_text.pdf"
+      },
+      "tags": ["commercial", "small-occupancy", "retail", "single-storey", "mezzanine", "dimensional"]
+    }
+  ],
+  "metadata": {
+    "schema_version": "1.0.0",
+    "last_updated": "2026-02-04T12:00:00Z",
+    "updated_by": "system",
+    "total_rules": 3,
+    "active_rules": 3,
+    "source_documents": [
+      "DOC-BCBC-DEMO-001"
+    ]
+  }
+}
